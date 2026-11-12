@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Expense Budget</string>
+
+    <string name = "title_expenses">Expenses</string>
+    <string name = "title_categories">Categories</string>
+    <string name = "title_summary">Summary</string>
+    <string name = "title_add_edit_expense">Expenses</string>
+
+    <string name = "placeholder_expenses">Expenses screen</string>
+    <string name = "placeholder_categories">Categories screen</string>
+    <string name = "placeholder_summary">Summary screen</string>
+    <string name = "placeholder_add_edit">Add / Edit expense screen</string>
+    <string name = "placeholder_open_add_edit">Open Add / Edit</string>
 </resources>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/expensesFragment">
+
+    <fragment
+        android:id="@+id/expensesFragment"
+        android:name="com.mobileapp2025.expensebudget.ui.expenses.ExpensesFragment"
+        android:label="@string/title_expenses">
+        <action
+            android:id="@+id/action_expenses_to_addEdit"
+            app:destination="@id/addEditExpenseFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/categoriesFragment"
+        android:name="com.mobileapp2025.expensebudget.ui.categories.CategoriesFragment"
+        android:label="@string/title_categories" />
+
+    <fragment
+        android:id="@+id/summaryFragment"
+        android:name="com.mobileapp2025.expensebudget.ui.summary.SummaryFragment"
+        android:label="@string/title_summary" />
+
+    <fragment
+        android:id="@+id/addEditExpenseFragment"
+        android:name="com.mobileapp2025.expensebudget.ui.addedit.AddEditExpenseFragment"
+        android:label="@string/title_add_edit_expense">
+        <argument
+            android:name="expenseId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
+</navigation>
