@@ -2,4 +2,9 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <!-- Budget progress colors (light theme) -->
+    <color name="budget_ok">#2E7D32</color>
+    <color name="budget_near">#EF6C00</color>
+    <color name="budget_exceeded">#B3261E</color>
+
 </resources>

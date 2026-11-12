@@ -6,9 +6,17 @@
     <string name = "title_summary">Summary</string>
     <string name = "title_add_edit_expense">Expenses</string>
 
-    <string name = "placeholder_expenses">Expenses screen</string>
     <string name = "placeholder_categories">Categories screen</string>
     <string name = "placeholder_summary">Summary screen</string>
     <string name = "placeholder_add_edit">Add / Edit expense screen</string>
-    <string name = "placeholder_open_add_edit">Open Add / Edit</string>
+
+    <!-- Expenses screen -->
+    <string name="previous_month">Previous month</string>
+    <string name="next_month">Next month</string>
+    <string name="total_spent">Total: %1$s</string>
+    <string name="budget_summary">Budgeted categories: %1$s of %2$s (%3$d%%)</string>
+    <string name="no_expenses">No expenses this month</string>
+    <string name="add_expense">Add expense</string>
+    <string name="expense_date_note">%1$s · %2$s</string>
+
 </resources>
