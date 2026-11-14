@@ -15,6 +15,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.stateIn
+import com.mobileapp2025.expensebudget.data.local.entity.ExpenseEntity
+import kotlinx.coroutines.launch
 
 /**
  * Everything the expenses screen needs to draw itself.
@@ -61,6 +63,15 @@ class ExpensesViewModel(
     fun previousMonth() = changeMonth(-1)
 
     fun nextMonth() = changeMonth(1)
+
+    fun deleteExpense(expense: ExpenseEntity) {
+        viewModelScope.launch { expenseRepository.delete(expense) }
+    }
+
+    /** Puts a just-deleted expense back (the Undo action). It keeps its old id. */
+    fun restoreExpense(expense: ExpenseEntity) {
+        viewModelScope.launch { expenseRepository.insert(expense) }
+    }
 
     private fun changeMonth(delta: Long) {
         val current = YearMonth.parse(selectedMonth.value)

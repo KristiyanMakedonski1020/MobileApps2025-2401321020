@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -11,7 +12,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.mobileapp2025.expensebudget.BudgetApp
 import com.mobileapp2025.expensebudget.R
 import com.mobileapp2025.expensebudget.databinding.FragmentExpensesBinding
@@ -26,6 +29,7 @@ import kotlinx.coroutines.launch
 
 /**
  * Start screen: the expenses of the selected month with the total and the budget progress.
+ * Tap a row to edit it, swipe a row to delete it (with Undo).
  */
 class ExpensesFragment : Fragment() {
 
@@ -50,6 +54,7 @@ class ExpensesFragment : Fragment() {
 
         val adapter = ExpensesAdapter { expenseId -> openEditor(expenseId) }
         binding.recyclerExpenses.adapter = adapter
+        attachSwipeToDelete(adapter)
 
         binding.buttonPreviousMonth.setOnClickListener { viewModel.previousMonth() }
         binding.buttonNextMonth.setOnClickListener { viewModel.nextMonth() }
@@ -67,6 +72,31 @@ class ExpensesFragment : Fragment() {
     private fun openEditor(expenseId: Long) {
         val args = Bundle().apply { putLong("expenseId", expenseId) }
         findNavController().navigate(R.id.action_expenses_to_addEdit, args)
+    }
+
+    private fun attachSwipeToDelete(adapter: ExpensesAdapter) {
+        val callback = object : ItemTouchHelper.SimpleCallback(
+            0,
+            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT,
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder,
+            ): Boolean = false
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.bindingAdapterPosition
+                if (position == RecyclerView.NO_POSITION) return
+                val deleted = adapter.currentList[position].expense
+                viewModel.deleteExpense(deleted)
+                Snackbar.make(binding.root, R.string.expense_deleted, Snackbar.LENGTH_LONG)
+                    .setAnchorView(binding.fabAdd)
+                    .setAction(R.string.undo) { viewModel.restoreExpense(deleted) }
+                    .show()
+            }
+        }
+        ItemTouchHelper(callback).attachToRecyclerView(binding.recyclerExpenses)
     }
 
     private fun render(state: ExpensesUiState, adapter: ExpensesAdapter) {

@@ -8,8 +8,6 @@
 
     <string name = "placeholder_categories">Categories screen</string>
     <string name = "placeholder_summary">Summary screen</string>
-    <string name = "placeholder_add_edit">Add / Edit expense screen</string>
-
     <!-- Expenses screen -->
     <string name="previous_month">Previous month</string>
     <string name="next_month">Next month</string>
@@ -18,5 +16,30 @@
     <string name="no_expenses">No expenses this month</string>
     <string name="add_expense">Add expense</string>
     <string name="expense_date_note">%1$s · %2$s</string>
+
+    <!-- Add / Edit expense -->
+    <string name="title_new_expense">New expense</string>
+    <string name="title_edit_expense">Edit expense</string>
+    <string name="currency_symbol">€</string>
+    <string name="hint_amount">Amount</string>
+    <string name="hint_category">Category</string>
+    <string name="hint_date">Date</string>
+    <string name="hint_note">Note (optional)</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="undo">Undo</string>
+    <string name="select_date">Select date</string>
+    <string name="delete_expense_title">Delete this expense?</string>
+    <string name="delete_expense_message">This cannot be undone.</string>
+    <string name="expense_deleted">Expense deleted</string>
+    <string name="expense_not_found">Expense not found</string>
+    <string name="error_amount_empty">Enter an amount</string>
+    <string name="error_amount_invalid">Enter a valid number</string>
+    <string name="error_amount_not_positive">Amount must be greater than 0</string>
+    <string name="error_amount_decimals">Use at most 2 decimal places</string>
+    <string name="error_amount_too_large">Amount is too large</string>
+    <string name="error_category_required">Choose a category</string>
+    <string name="error_note_too_long">Note is too long</string>
 
 </resources>
