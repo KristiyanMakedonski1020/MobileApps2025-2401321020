@@ -8,10 +8,10 @@ import com.mobileapp2025.expensebudget.AppContainer
 import com.mobileapp2025.expensebudget.ui.addedit.AddEditExpenseViewModel
 import com.mobileapp2025.expensebudget.ui.categories.CategoriesViewModel
 import com.mobileapp2025.expensebudget.ui.expenses.ExpensesViewModel
+import com.mobileapp2025.expensebudget.ui.summary.SummaryViewModel
 
 /**
  * Creates every ViewModel of the app with the repositories from [AppContainer].
- * New ViewModels are added to the `when` block in later phases.
  */
 class ViewModelFactory(private val container: AppContainer) : ViewModelProvider.Factory {
 
@@ -33,6 +33,12 @@ class ViewModelFactory(private val container: AppContainer) : ViewModelProvider.
                 )
             modelClass.isAssignableFrom(CategoriesViewModel::class.java) ->
                 CategoriesViewModel(container.categoryRepository)
+            modelClass.isAssignableFrom(SummaryViewModel::class.java) ->
+                SummaryViewModel(
+                    container.expenseRepository,
+                    container.categoryRepository,
+                    handle,
+                )
             else -> throw IllegalArgumentException("Unknown ViewModel: ${modelClass.name}")
         } as T
     }

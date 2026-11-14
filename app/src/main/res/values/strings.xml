@@ -6,7 +6,6 @@
     <string name = "title_summary">Summary</string>
     <string name = "title_add_edit_expense">Expenses</string>
 
-    <string name = "placeholder_summary">Summary screen</string>
     <!-- Expenses screen -->
     <string name="previous_month">Previous month</string>
     <string name="next_month">Next month</string>
@@ -69,5 +68,11 @@
     <string name="color_name_gray">Gray</string>
     <string name="color_name_teal">Teal</string>
     <string name="color_name_pink">Pink</string>
+
+    <!-- Summary -->
+    <string name="no_summary_data">No data for this month</string>
+    <string name="percent_of_total">%1$d%% of total</string>
+    <string name="budget_line">%1$s of %2$s (%3$d%%)</string>
+    <string name="budget_line_exceeded">%1$s of %2$s (%3$d%%) · Over budget</string>
 
 </resources>
