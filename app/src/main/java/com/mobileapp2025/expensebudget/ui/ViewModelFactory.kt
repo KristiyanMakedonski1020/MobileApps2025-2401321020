@@ -6,6 +6,7 @@ import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.mobileapp2025.expensebudget.AppContainer
 import com.mobileapp2025.expensebudget.ui.addedit.AddEditExpenseViewModel
+import com.mobileapp2025.expensebudget.ui.categories.CategoriesViewModel
 import com.mobileapp2025.expensebudget.ui.expenses.ExpensesViewModel
 
 /**
@@ -30,6 +31,8 @@ class ViewModelFactory(private val container: AppContainer) : ViewModelProvider.
                     container.categoryRepository,
                     handle,
                 )
+            modelClass.isAssignableFrom(CategoriesViewModel::class.java) ->
+                CategoriesViewModel(container.categoryRepository)
             else -> throw IllegalArgumentException("Unknown ViewModel: ${modelClass.name}")
         } as T
     }

@@ -6,7 +6,6 @@
     <string name = "title_summary">Summary</string>
     <string name = "title_add_edit_expense">Expenses</string>
 
-    <string name = "placeholder_categories">Categories screen</string>
     <string name = "placeholder_summary">Summary screen</string>
     <!-- Expenses screen -->
     <string name="previous_month">Previous month</string>
@@ -41,5 +40,34 @@
     <string name="error_amount_too_large">Amount is too large</string>
     <string name="error_category_required">Choose a category</string>
     <string name="error_note_too_long">Note is too long</string>
+
+    <!-- Categories -->
+    <string name="add_category">Add category</string>
+    <string name="new_category">New category</string>
+    <string name="edit_category">Edit category</string>
+    <string name="hint_category_name">Name</string>
+    <string name="hint_monthly_budget">Monthly budget (optional)</string>
+    <string name="helper_budget">Leave empty for no budget</string>
+    <string name="label_color">Color</string>
+    <string name="no_categories">No categories yet</string>
+    <string name="no_budget">No budget</string>
+    <string name="budget_per_month">Budget: %1$s / month</string>
+    <string name="delete_category_cd">Delete category</string>
+    <string name="delete_category_title">Delete category?</string>
+    <string name="delete_category_message">%1$s will be deleted permanently.</string>
+    <string name="category_in_use">This category is used by expenses and cannot be deleted</string>
+    <string name="error_name_empty">Enter a name</string>
+    <string name="error_name_too_long">Name is too long</string>
+    <string name="error_name_duplicate">A category with this name already exists</string>
+
+    <!-- Category color names -->
+    <string name="color_name_green">Green</string>
+    <string name="color_name_blue">Blue</string>
+    <string name="color_name_orange">Orange</string>
+    <string name="color_name_purple">Purple</string>
+    <string name="color_name_red">Red</string>
+    <string name="color_name_gray">Gray</string>
+    <string name="color_name_teal">Teal</string>
+    <string name="color_name_pink">Pink</string>
 
 </resources>
