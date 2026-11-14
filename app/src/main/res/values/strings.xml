@@ -75,4 +75,10 @@
     <string name="budget_line">%1$s of %2$s (%3$d%%)</string>
     <string name="budget_line_exceeded">%1$s of %2$s (%3$d%%) · Over budget</string>
 
+    <!-- Share report -->
+    <string name="share_report">Share report</string>
+    <string name="report_subject">Expense report - %1$s</string>
+    <string name="no_app_to_share">No app available to share the report</string>
+    <string name="nothing_to_share">Nothing to share: there are no expenses this month</string>
+
 </resources>

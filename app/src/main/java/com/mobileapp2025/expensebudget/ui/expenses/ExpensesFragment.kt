@@ -1,10 +1,16 @@
 package com.mobileapp2025.expensebudget.ui.expenses
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -29,7 +35,8 @@ import kotlinx.coroutines.launch
 
 /**
  * Start screen: the expenses of the selected month with the total and the budget progress.
- * Tap a row to edit it, swipe a row to delete it (with Undo).
+ * Tap a row to edit it, swipe a row to delete it (with Undo),
+ * use the share icon in the toolbar to send the monthly report to another app.
  */
 class ExpensesFragment : Fragment() {
 
@@ -38,6 +45,22 @@ class ExpensesFragment : Fragment() {
 
     private val viewModel: ExpensesViewModel by viewModels {
         ViewModelFactory((requireActivity().application as BudgetApp).container)
+    }
+
+    /** Adds the share icon to the toolbar while this screen is visible. */
+    private val menuProvider = object : MenuProvider {
+        override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+            menuInflater.inflate(R.menu.expenses_toolbar_menu, menu)
+        }
+
+        override fun onMenuItemSelected(menuItem: MenuItem): Boolean =
+            when (menuItem.itemId) {
+                R.id.action_share_report -> {
+                    shareReport()
+                    true
+                }
+                else -> false
+            }
     }
 
     override fun onCreateView(
@@ -51,6 +74,9 @@ class ExpensesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Tied to the view lifecycle: the menu is removed automatically when this screen goes away.
+        requireActivity().addMenuProvider(menuProvider, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
         val adapter = ExpensesAdapter { expenseId -> openEditor(expenseId) }
         binding.recyclerExpenses.adapter = adapter
@@ -72,6 +98,32 @@ class ExpensesFragment : Fragment() {
     private fun openEditor(expenseId: Long) {
         val args = Bundle().apply { putLong("expenseId", expenseId) }
         findNavController().navigate(R.id.action_expenses_to_addEdit, args)
+    }
+
+    /** Sends the plain-text report of the shown month through the system share sheet. */
+    private fun shareReport() {
+        val state = viewModel.uiState.value
+        if (state.expenses.isEmpty()) {
+            showMessage(R.string.nothing_to_share)
+            return
+        }
+
+        val sendIntent = Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_SUBJECT, getString(R.string.report_subject, formatMonth(state.month)))
+            putExtra(Intent.EXTRA_TEXT, viewModel.buildReport())
+        }
+        try {
+            startActivity(Intent.createChooser(sendIntent, getString(R.string.share_report)))
+        } catch (e: ActivityNotFoundException) {
+            showMessage(R.string.no_app_to_share)
+        }
+    }
+
+    private fun showMessage(messageRes: Int) {
+        Snackbar.make(binding.root, messageRes, Snackbar.LENGTH_LONG)
+            .setAnchorView(binding.fabAdd)
+            .show()
     }
 
     private fun attachSwipeToDelete(adapter: ExpensesAdapter) {
